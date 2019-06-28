@@ -5,7 +5,6 @@ router.all('/*',(req,res,next)=>{
     next();
 });
 router.get('/',(req,res)=>{
-    res.render('admin/index');
+    res.send('It worked');
 });
-
 module.exports = router;
