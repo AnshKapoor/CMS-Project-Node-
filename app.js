@@ -12,9 +12,10 @@ mongoose.connect('mongodb://localhost:27017/cms',{ useNewUrlParser: true }).then
 app.use('/',home);
 app.use('/admin',admin);
 app.use('/admin/posts',posts);
+app.set('views', path.join(__dirname, './views'));
 app.engine('handlebars',exphbars({defaultLayout:'home'}));
 app.set('view engine','handlebars');
-app.use(express.static(path.join(__dirname,'./public')))
+app.use(express.static(path.join(__dirname,'./public')));
 app.listen(4500,()=>{
     console.log('listening to 4500');
 });
