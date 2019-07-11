@@ -22,3 +22,4 @@ body:{
 }
 
 });
+module.exports = mongoose.model('posts',PostSchema);

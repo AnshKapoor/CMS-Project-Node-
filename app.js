@@ -5,10 +5,19 @@ const exphbars = require('express-handlebars');
 const home = require('./routes/home/index');
 const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
+const bodyParser = require('body-parser');
+
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/cms',{ useNewUrlParser: true }).then((db)=>{
     console.log('Connected mongo');
 }).catch(error=>console.log(error));
+// Setting up body Parser
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+
+
+// Routes
 app.use('/',home);
 app.use('/admin',admin);
 app.use('/admin/posts',posts);
