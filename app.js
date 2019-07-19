@@ -6,6 +6,7 @@ const home = require('./routes/home/index');
 const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -19,7 +20,8 @@ mongoose.connect('mongodb://localhost:27017/cms',{ useNewUrlParser: true }).then
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-
+// Method override
+app.use(methodOverride('_method'));
 // Routes
 app.use('/',home);
 app.use('/admin',admin);
