@@ -7,6 +7,7 @@ const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const upload = require('express-fileupload');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -14,7 +15,7 @@ mongoose.connect('mongodb://localhost:27017/cms',{ useNewUrlParser: true }).then
     console.log('Connected mongo');
 }).catch(error=>console.log(error));
 
-
+app.use(upload());
 
 // Setting up body Parser 
 app.use(bodyParser.urlencoded({extended:true}));

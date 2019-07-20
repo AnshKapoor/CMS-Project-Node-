@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
+const {isEmpty} = require('../../helper/upload-helper');
 router.all('/*',(req,res,next)=>{
     req.app.locals.layout = 'admin';
     next();
@@ -19,6 +20,17 @@ router.get('/create',(req,res)=>{
     res.render('admin/posts/create');
 });
 router.post('/create',(req,res)=>{
+    let filename = 'CertificateAnsh.jpg';
+    if(!isEmpty(req.files)){
+        let file = req.files.file;
+         filename = Date.now()+'-'+file.name;
+        let dirUploads = './public/uploads';
+        file.mv(dirUploads+filename,(err)=>{
+              
+              if(err) throw err;
+    
+        });
+    }
     let allowComments = true;
     if(req.body.allowComments){
         allowComments = true;
@@ -30,7 +42,8 @@ router.post('/create',(req,res)=>{
         title:req.body.title,
         status:req.body.status,
         allowComments:allowComments,
-        body:req.body.body
+        body:req.body.body,
+        file:filename
 
     });
     newPost.save().then(savedPost=>{
