@@ -21,7 +21,17 @@ router.get('/create',(req,res)=>{
     res.render('admin/posts/create');
 });
 router.post('/create',(req,res)=>{
-    let filename = 'CertificateAnsh.jpg';
+    let errors = [];
+    if(!req.body.title){
+        errors.push({message:'please add a title'});
+    }
+    if(errors.length>0){
+        res.render('admin/posts/create',{
+            errors:errors
+        });
+    }
+    else{
+     let filename = 'CertificateAnsh.jpg';
     if(!isEmpty(req.files)){
         let file = req.files.file;
          filename = Date.now()+'-'+file.name;
@@ -52,8 +62,9 @@ router.post('/create',(req,res)=>{
     }).catch(error=>{
         console.log('Could not save due to'+error);
     });
-    
+}
 });
+
 router.get('/edit/:id',(req,res)=>{
     Post.findOne({_id:req.params.id}).then(post=>{
         res.render('admin/posts/edit',{post:post});
@@ -84,6 +95,7 @@ router.put('/edit/:id',(req,res)=>{
     });
 });
 });
+
 router.delete('/:id',(req,res)=>{
     Post.findOne({_id:req.params.id}).then(post=>{
         fs.unlink(uploadDir+post.file,(err)=>{
@@ -93,4 +105,5 @@ router.delete('/:id',(req,res)=>{
       
     });
 });
+
 module.exports = router;
