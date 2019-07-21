@@ -25,6 +25,13 @@ router.post('/create',(req,res)=>{
     if(!req.body.title){
         errors.push({message:'please add a title'});
     }
+
+    if(!req.body.status){
+        errors.push({message:'please add a status'});
+    }
+    if(!req.body.body){
+        errors.push({message:'please add a description'});
+    }
     if(errors.length>0){
         res.render('admin/posts/create',{
             errors:errors
