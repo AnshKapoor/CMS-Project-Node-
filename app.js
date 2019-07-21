@@ -14,7 +14,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/cms',{ useNewUrlParser: true }).then((db)=>{
     console.log('Connected mongo');
 }).catch(error=>console.log(error));
-
+// Using express file
 app.use(upload());
 
 // Setting up body Parser 
