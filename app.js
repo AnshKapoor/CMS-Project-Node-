@@ -31,6 +31,10 @@ app.use(session({
     saveUninitialized:true
 }));
 app.use(flash());
+app.use((req,res,next)=>{
+    res.locals.success_message = req.flash('success_message');
+    next();
+});
 // Routes
 app.use('/',home);
 app.use('/admin',admin);

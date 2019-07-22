@@ -5,7 +5,8 @@ router.all('/*',(req,res,next)=>{
     next();
 });
 router.get('/',(req,res)=>{
-    res.render('home/index');
+    
+   res.render('home/index');
 });
 router.get('/about',(req,res)=>{
     res.render('home/about');
