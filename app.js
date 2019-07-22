@@ -8,6 +8,8 @@ const posts = require('./routes/admin/posts');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const upload = require('express-fileupload');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -23,6 +25,12 @@ app.use(bodyParser.json());
 
 // Method override
 app.use(methodOverride('_method'));
+app.use(session({
+    secret:'ansh123',
+    resave:true,
+    saveUninitialized:true
+}));
+app.use(flash());
 // Routes
 app.use('/',home);
 app.use('/admin',admin);
