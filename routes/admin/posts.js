@@ -106,7 +106,7 @@ router.put('/edit/:id',(req,res)=>{
             });
         }
         post.save().then(updatedPost=>{
-            
+            req.flash('success_message','Post was successfully updated');
             res.redirect('/admin/posts');
 
         }).catch(error=>{
@@ -119,6 +119,7 @@ router.delete('/:id',(req,res)=>{
     Post.findOne({_id:req.params.id}).then(post=>{
         fs.unlink(uploadDir+post.file,(err)=>{
            post.remove();
+           req.flash('success_message','Post was successfully deleted');
             res.redirect('/admin/posts');
         });
       
