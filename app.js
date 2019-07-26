@@ -39,8 +39,8 @@ app.use((req,res,next)=>{
 app.use('/',home);
 app.use('/admin',admin);
 app.use('/admin/posts',posts);
-const {select} = require('./helper/handlebars-helpers')
-app.engine('handlebars',exphbars({defaultLayout:'home',helpers:{select:select}}));
+const {select,GenerateTime} = require('./helper/handlebars-helpers')
+app.engine('handlebars',exphbars({defaultLayout:'home',helpers:{select:select,GenerateTime:GenerateTime}}));
 app.set('view engine','handlebars');
 app.use(express.static(path.join(__dirname,'./public')));
 app.listen(4500,()=>{
